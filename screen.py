@@ -1,4 +1,4 @@
-from ui.geometry import Rect
+from gupy.geometry import Rect
 
 class Screen:
 
