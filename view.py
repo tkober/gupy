@@ -1,6 +1,6 @@
 import curses
 
-from ui.geometry import Size, Rect
+from gupy.geometry import Size, Rect
 
 
 class View:
