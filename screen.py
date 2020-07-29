@@ -58,6 +58,10 @@ class ConstrainedBasedScreen(Screen):
                 self.__views.remove(item)
                 break
 
+    def remove_views(self, views):
+        for view in views:
+            self.remove_view(view)
+
     def render(self):
         self.begin_redndering()
 
