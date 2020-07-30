@@ -42,9 +42,21 @@ class BackgroundView(View):
             view.render(stdscr, rect)
 
 
+class ListViewDelegate:
+
+    def number_of_rows(self) -> int:
+        pass
+
+    def get_data(self, i) -> object:
+        return self.files[i]
+
+    def build_row(self, i, data, is_selected, width) -> View:
+        pass
+
+
 class ListView(View):
 
-    def __init__(self, delegate):
+    def __init__(self, delegate: ListViewDelegate):
         super().__init__()
         self.delegate = delegate
         self.__from_index = 0
