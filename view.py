@@ -42,7 +42,7 @@ class BackgroundView(View):
             view.render(stdscr, rect)
 
 
-class ListViewDelegate:
+class ListViewDataSource:
 
     def number_of_rows(self) -> int:
         pass
@@ -50,15 +50,19 @@ class ListViewDelegate:
     def get_data(self, i) -> object:
         return self.files[i]
 
+
+class ListViewDelegate:
+
     def build_row(self, i, data, is_selected, width) -> View:
         pass
 
 
 class ListView(View):
 
-    def __init__(self, delegate: ListViewDelegate):
+    def __init__(self, delegate: ListViewDelegate, data_source: ListViewDataSource):
         super().__init__()
         self.delegate = delegate
+        self.data_source = data_source
         self.__from_index = 0
         self.__selected_row_index = 0
 
@@ -73,7 +77,7 @@ class ListView(View):
 
     def render(self, stdscr, rect):
         super().render(stdscr, rect)
-        n_rows = self.delegate.number_of_rows()
+        n_rows = self.data_source.number_of_rows()
 
         self.__clip_selected_row_index(n_rows)
         self.__align_frame(n_rows, rect.height)
@@ -85,7 +89,7 @@ class ListView(View):
                 break
 
             is_selected = item_index == self.__selected_row_index
-            data = self.delegate.get_data(item_index)
+            data = self.data_source.get_data(item_index)
             row_view = self.delegate.build_row(item_index, data, is_selected, rect.width)
             row_view.render(stdscr, Rect(rect.x, rect.y+i, rect.width, 1))
 
