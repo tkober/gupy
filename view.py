@@ -73,7 +73,8 @@ class ListView(View):
         self.select_row(self.__selected_row_index - 1)
 
     def select_row(self, index):
-        self.__selected_row_index = index
+        n_rows = self.data_source.number_of_rows()
+        self.__selected_row_index = min(max(0, index), n_rows-1)
 
     def render(self, stdscr, rect):
         super().render(stdscr, rect)
