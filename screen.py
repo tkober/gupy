@@ -15,6 +15,10 @@ class Screen:
         self.begin_redndering()
         self.end_redndering()
 
+    def get_screen_size(self):
+        screen_height, screen_width = self.stdscr.getmaxyx()
+        return screen_height, screen_width
+
     def getViews(self):
         pass
 
